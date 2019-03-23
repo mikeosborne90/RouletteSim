@@ -11,5 +11,5 @@ class bet:
 
     def betColumn(self, betAmt, colNum):
         """bet = (col#, multiplier, amount)"""
-        myBet = ([self.table.numbers[0][colNum], self.table.numbers[1][colNum], self.table.numbers[2][colNum]], 2, betAmt)
+        myBet = ([self.table.numbers[0][colNum], self.table.numbers[1][colNum], self.table.numbers[2][colNum]], 11, betAmt)
         return myBet

@@ -1,35 +1,46 @@
 import wheel
 import bet
-import betTracker
 
 class gameLogic:
-    def __init__(self, amount):
-        self.amount = amount
+    def __init__(self, player):
+        self.player = player
         self.wheel = wheel.wheel()
         self.bet = bet.bet()
-        self.betTracker = betTracker.betTracker()
+        self.betList = list([])
 
-    def chooseRowBet(self, row):
-        bet = self.bet.betRow(self.amount, row)
-        self.betTracker.betList.append(bet)
+    def chooseRowBet(self, row, betSize):
+        bet = self.bet.betRow(betSize, row)
+        self.betList.append(bet)
+        print("You bet "+str(betSize)+" on row "+str(row))
 
-    def chooseColumnBet(self, col):
-        bet = self.bet.betColumn(self.amount, col)
-        self.betTracker.betList.append(bet)
+    def chooseColumnBet(self, col, betSize):
+        bet = self.bet.betColumn(betSize, col)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on column " + str(col))
 
     def didIWin(self):
-        numberSelected = self.wheel.spinWheel()
+        numberSelected = self.wheel.spinWheelEuropean()
         print("You landed on:", numberSelected)
         win = False
+        result = 0
+        totalBetAmount = 0
 
-        for i in self.betTracker.betList:
+        for i in self.betList:
+            totalBetAmount += i[2]
             if numberSelected in i[0]:
                 win = True
+                result = result + ((i[1] * i[2]) + i[2])
+
+        self.player.removeFromMoney(totalBetAmount)
 
         if(win):
-            print("You Won!")
+            self.player.addToMoney(result)
+            print("You Won "+ str(result) +"!")
         else:
-            print("Sorry, you lost.")
+            print("Sorry, you lost "+ str(totalBetAmount) +".")
+
+    def getTotalMoney(self):
+        return self.player.getMoney()
 
     def showNumbersChosen(self):
-        self.betTracker.displayBetList()
+        print(self.betList)

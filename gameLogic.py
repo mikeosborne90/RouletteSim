@@ -18,6 +18,21 @@ class gameLogic:
         self.betList.append(bet)
         print("You bet " + str(betSize) + " on column " + str(col))
 
+    def chooseSingleBet(self, number, betSize):
+        bet = self.bet.betSingle(betSize, number)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on number " + str(number))
+
+    def chooseOddsBet(self, betSize):
+        bet = self.bet.betOdds(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on odds")
+
+    def chooseEvensBet(self, betSize):
+        bet = self.bet.betEvens(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on evens")
+
     def didIWin(self):
         numberSelected = self.wheel.spinWheelEuropean()
         print("You landed on:", numberSelected)

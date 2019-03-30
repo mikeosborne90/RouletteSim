@@ -7,7 +7,7 @@ class table:
 
         self.greensEuro = [0]
         self.greensAmer = [0, 37]
-
+#0 = red, 1 = black
         self.colors = \
            [[0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0],
             [1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1],

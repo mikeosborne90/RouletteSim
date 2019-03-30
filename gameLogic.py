@@ -33,6 +33,16 @@ class gameLogic:
         self.betList.append(bet)
         print("You bet " + str(betSize) + " on evens")
 
+    def chooseRedsBet(self, betSize):
+        bet = self.bet.betReds(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on reds")
+
+    def chooseBlacksBet(self, betSize):
+        bet = self.bet.betBlacks(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on blacks")
+
     def didIWin(self):
         numberSelected = self.wheel.spinWheelEuropean()
         print("You landed on:", numberSelected)

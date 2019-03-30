@@ -28,3 +28,25 @@ class bet:
         """bet = (even#'s, multiplier, amount)"""
         myBet = ([i for i in range(1,37) if i%2 == 0], 1, betAmt) #fetches odd numbers 1->35
         return myBet
+
+    def betReds(self, betAmt):
+        """bet = (red#'s, multiplier, amount)"""
+        reds = []
+        for j in range(3):
+            for i in range(12):
+                if (self.table.colors[j][i] == 0):
+                    reds.append(self.table.numbers[j][i])
+
+        myBet = (reds, 1, betAmt)
+        return myBet
+
+    def betBlacks(self, betAmt):
+        """bet = (black#'s, multiplier, amount)"""
+        blacks = []
+        for j in range(3):
+            for i in range(12):
+                if (self.table.colors[j][i] == 1):
+                    blacks.append(self.table.numbers[j][i])
+
+        myBet = (blacks, 1, betAmt)
+        return myBet

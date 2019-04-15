@@ -43,6 +43,16 @@ class gameLogic:
         self.betList.append(bet)
         print("You bet " + str(betSize) + " on blacks")
 
+    def chooseLowsBet(self, betSize):
+        bet = self.bet.betLows(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on lows(1-18)")
+
+    def chooseHighsBet(self, betSize):
+        bet = self.bet.betHighs(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on highs(19-36)")
+
     def didIWin(self):
         numberSelected = self.wheel.spinWheelEuropean()
         print("You landed on:", numberSelected)

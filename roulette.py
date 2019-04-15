@@ -13,7 +13,8 @@ myGame = gL.gameLogic(player1)
 # #Example betting on odds
 # myGame.chooseOddsBet(20)
 #Example betting on blacks
-myGame.chooseBlacksBet(10)
+# myGame.chooseBlacksBet(10)
+myGame.chooseLowsBet(100)
 myGame.showNumbersChosen()
 myGame.didIWin()
 print("Total Money:", myGame.getTotalMoney())

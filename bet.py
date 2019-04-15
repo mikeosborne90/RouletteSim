@@ -1,3 +1,4 @@
+import re
 import table
 
 class bet:
@@ -50,3 +51,43 @@ class bet:
 
         myBet = (blacks, 1, betAmt)
         return myBet
+
+    def betLows(self, betAmt):
+        """bet = (low#'s, multiplier, amount)"""
+        myBet = ([i for i in range(1,19)], 1, betAmt)
+        return myBet
+
+    def betHighs(self, betAmt):
+        """bet = (high#'s, multiplier, amount)"""
+        myBet = ([i for i in range(19,37)], 1, betAmt)
+        return myBet
+
+    def betDozen1(self, betAmt):
+        """bet = (1-12, multiplier, amount)"""
+        myBet = ([i for i in range(1,13)], 2, betAmt)
+        return myBet
+
+    def betDozen2(self, betAmt):
+        """bet = (13-24, multiplier, amount)"""
+        myBet = ([i for i in range(13,25)], 2, betAmt)
+        return myBet
+
+    def betDozen3(self, betAmt):
+        """bet = (25-36, multiplier, amount)"""
+        myBet = ([i for i in range(25,37)], 2, betAmt)
+        return myBet
+
+    # def betNumberDirection(self, betAmt, numDirection):
+    #     """i.e 3R(right) or 5U(up)"""
+    #     #matches numbers in string
+    #     numbers = re.findall(r'\d+', numDirection)
+    #     #matches letters in string
+    #     direction = re.findall(r'\D', numDirection)
+    #     num = int(numbers[0])
+    #     dir = direction[0]
+    #
+    #     if (num > 3 and num < 34):
+    #         if(dir == 'U'): #up
+    #
+    #     myBet = ([i for i in range(1,13)], 2, betAmt)
+    #     return myBet

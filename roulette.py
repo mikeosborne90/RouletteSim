@@ -21,11 +21,15 @@ while exitProgram != True:
     print("| 1. Bet on a number     |")
     print("| 2. Bet on evens        |")
     print("| 3. Bet on odds         |")
-    print("| 4. Spin wheel          |")
-    print("| 5. Show Bets           |")
-    print("| 6. Clear Bets          |")
-    print("| 7. Reset Money         |")
-    print("| 8. Exit                |")
+    print("| 4. Bet on reds         |")
+    print("| 5. Bet on blacks       |")
+    print("| 6. Bet on lows         |")
+    print("| 7. Bet on highs        |")
+    print("| 8. Spin wheel          |")
+    print("| 9. Show Bets           |")
+    print("| 10. Clear Bets         |")
+    print("| 11. Reset Money        |")
+    print("| 12. Exit               |")
     print("<<---------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
@@ -63,6 +67,38 @@ while exitProgram != True:
             print("Needs to be an integer value!")
 
     elif (option == '4'):
+        amount = input("How much to bet?: ")
+
+        if (intCheck(amount)):
+            myGame.chooseRedsBet(int(amount))
+        else:
+            print("Needs to be an integer value!")
+
+    elif (option == '5'):
+        amount = input("How much to bet?: ")
+
+        if (intCheck(amount)):
+            myGame.chooseBlacksBet(int(amount))
+        else:
+            print("Needs to be an integer value!")
+
+    elif (option == '6'):
+        amount = input("How much to bet?: ")
+
+        if (intCheck(amount)):
+            myGame.chooseLowsBet(int(amount))
+        else:
+            print("Needs to be an integer value!")
+
+    elif (option == '7'):
+        amount = input("How much to bet?: ")
+
+        if (intCheck(amount)):
+            myGame.chooseHighsBet(int(amount))
+        else:
+            print("Needs to be an integer value!")
+
+    elif (option == '8'):
         numberOfRuns = input("How many spins?: ")
 
         if (intCheck(numberOfRuns)):
@@ -73,20 +109,20 @@ while exitProgram != True:
         else:
             print("Needs to be an integer value!")
 
-    elif (option == '5'):
+    elif (option == '9'):
         print("([#(s) chosen], multiplier, bet amount)")
         myGame.showNumbersChosen()
 
-    elif (option == '6'):
+    elif (option == '10'):
         myGame.clearBets()
 
-    elif (option == '7'):
+    elif (option == '11'):
         player1.setMoney(initalPlayerFunds)
         print("Current Money: ", myGame.getTotalMoney())
 
-    elif (option == '8'):
+    elif (option == '12'):
         print("Come back soon. :-)")
         exitProgram = True
 
     else:
-        print("Invalid Option, must enter (1->8)")
+        print("Invalid Option, must enter (1->12)")

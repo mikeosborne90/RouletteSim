@@ -25,7 +25,7 @@ while exitProgram != True:
     print("| 5. Show Bets           |")
     print("| 6. Clear Bets          |")
     print("| 7. Reset Money         |")
-    print("| Any other Key = exit   |")
+    print("| 8. Exit                |")
     print("<<---------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
@@ -84,5 +84,9 @@ while exitProgram != True:
         player1.setMoney(initalPlayerFunds)
         print("Current Money: ", myGame.getTotalMoney())
 
-    else:
+    elif (option == '8'):
+        print("Come back soon. :-)")
         exitProgram = True
+
+    else:
+        print("Invalid Option, must enter (1->8)")

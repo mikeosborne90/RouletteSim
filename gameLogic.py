@@ -79,3 +79,6 @@ class gameLogic:
 
     def showNumbersChosen(self):
         print(self.betList)
+
+    def clearBets(self):
+        self.betList = list([])

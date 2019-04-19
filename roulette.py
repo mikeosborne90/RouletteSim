@@ -2,11 +2,28 @@ import gameLogic as gL
 import player as ply
 import tkinter as tk
 
+numbers = ["zero","one", "two", "three", "four","five","six","seven","eight", "nine","ten","eleven",
+           "twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
+           "nineteen","twenty","twentyOne","twentyTwo","twentyThree","twentyFour","twentyFive",
+           "twentySix","twentySeven","twentyEight","twentyNine","thirty","thirtyOne","thirtyTwo"]
+
 # Board GUI ---------------------------------------------------------------------------
 root = tk.Tk()
-image = tk.PhotoImage(file="euroBoard.png")
+root.resizable(0,0) # Makes image non-resizable
+
+image = tk.PhotoImage(file="images/euroBoard.png")
 label = tk.Label(image=image)
 label.pack()
+
+count = 0
+for i in numbers:
+    i = tk.PhotoImage(file ="images/"+str(count)+".png")
+    count+=1
+
+one = tk.PhotoImage(file="images/1.png")
+oneButton = tk.Button(image = one)
+oneButton.place(x = 288, y =102)
+
 
 oneDollar = tk.Button(root, text = '$1', fg ='black')
 oneDollar.place(x = 25, y =200)

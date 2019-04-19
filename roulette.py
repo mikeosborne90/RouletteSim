@@ -1,5 +1,6 @@
 import gameLogic as gL
 import player as ply
+import tableUI
 
 def intCheck(stringToCheck):
     """Used to verify a string can be converted to an integer."""
@@ -36,19 +37,23 @@ while exitProgram != True:
     option = input("Enter Option: ")
 
     if (option == '1'):
-        choice = input("Choose a number 0->36: ")
-
-        if(intCheck(choice)):
-            if(int(choice) >= 0 and int(choice) <= 36):
-                amount = input("How much to bet?: ")
-                if (intCheck(amount)):
-                    myGame.chooseSingleBet(int(choice), int(amount))
+        euroTableUI = tableUI.tableUI()
+        choice = euroTableUI.receiveSelectedNumbers()
+        print("Choose a number 0->36:")
+        input("Enter any key to end selections.")
+        euroTableUI.closeTableWindow()
+        for i in range(len(choice)):
+            if(intCheck(choice[i])):
+                if(int(choice[i]) >= 0 and int(choice[i]) <= 36):
+                    amount = input("How much to bet?: ")
+                    if (intCheck(amount)):
+                        myGame.chooseSingleBet(choice[i], int(amount))
+                    else:
+                        print("Needs to be an integer value!")
                 else:
-                    print("Needs to be an integer value!")
+                    print("Number has to be betweem 0 and 36!")
             else:
-                print("Number has to be betweem 0 and 36!")
-        else:
-            print("Needs to be an integer value!")
+                print("Needs to be an integer value!")
 
     elif (option == '2'):
         amount = input("How much to bet?: ")

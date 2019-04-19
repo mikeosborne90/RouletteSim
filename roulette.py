@@ -1,54 +1,6 @@
 import gameLogic as gL
 import player as ply
-import tkinter as tk
-
-numbers = ["zero","one", "two", "three", "four","five","six","seven","eight", "nine","ten","eleven",
-           "twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
-           "nineteen","twenty","twentyOne","twentyTwo","twentyThree","twentyFour","twentyFive",
-           "twentySix","twentySeven","twentyEight","twentyNine","thirty","thirtyOne","thirtyTwo"]
-
-# Board GUI ---------------------------------------------------------------------------
-root = tk.Tk()
-root.resizable(0,0) # Makes image non-resizable
-
-image = tk.PhotoImage(file="images/euroBoard.png")
-label = tk.Label(image=image)
-label.pack()
-
-count = 0
-for i in numbers:
-    i = tk.PhotoImage(file ="images/"+str(count)+".png")
-    count+=1
-
-one = tk.PhotoImage(file="images/1.png")
-oneButton = tk.Button(image = one)
-oneButton.place(x = 288, y =102)
-
-
-oneDollar = tk.Button(root, text = '$1', fg ='black')
-oneDollar.place(x = 25, y =200)
-
-fiveDollar = tk.Button(root, text = '$5', fg ='black')
-fiveDollar.place(x = 25, y =300)
-
-tenDollar = tk.Button(root, text = '$10', fg ='black')
-tenDollar.place(x = 25, y =400)
-
-twentyDollar = tk.Button(root, text = '$20', fg ='black')
-twentyDollar.place(x = 25, y =500)
-
-fiftyDollar = tk.Button(root, text = '$50', fg ='black')
-fiftyDollar.place(x = 25, y =600)
-
-hundredDollar = tk.Button(root, text = '$100', fg ='black')
-hundredDollar.place(x = 10, y =700)
-
-redbutton = tk.Button(root, text = 'Red', fg ='red')
-redbutton.place(x = 110, y =360)
-
-root.mainloop()
-
-# End of Board GUI ------------------------------------------------------------------
+import tableUI
 
 def intCheck(stringToCheck):
     """Used to verify a string can be converted to an integer."""
@@ -85,19 +37,23 @@ while exitProgram != True:
     option = input("Enter Option: ")
 
     if (option == '1'):
-        choice = input("Choose a number 0->36: ")
-
-        if(intCheck(choice)):
-            if(int(choice) >= 0 and int(choice) <= 36):
-                amount = input("How much to bet?: ")
-                if (intCheck(amount)):
-                    myGame.chooseSingleBet(int(choice), int(amount))
+        euroTableUI = tableUI.tableUI()
+        choice = euroTableUI.receiveSelectedNumbers()
+        print("Choose a number 0->36:")
+        input("Enter any key to end selections.")
+        euroTableUI.closeTableWindow()
+        for i in range(len(choice)):
+            if(intCheck(choice[i])):
+                if(int(choice[i]) >= 0 and int(choice[i]) <= 36):
+                    amount = input("How much to bet?: ")
+                    if (intCheck(amount)):
+                        myGame.chooseSingleBet(choice[i], int(amount))
+                    else:
+                        print("Needs to be an integer value!")
                 else:
-                    print("Needs to be an integer value!")
+                    print("Number has to be betweem 0 and 36!")
             else:
-                print("Number has to be betweem 0 and 36!")
-        else:
-            print("Needs to be an integer value!")
+                print("Needs to be an integer value!")
 
     elif (option == '2'):
         amount = input("How much to bet?: ")
@@ -175,4 +131,3 @@ while exitProgram != True:
 
     else:
         print("Invalid Option, must enter (1->12)")
-

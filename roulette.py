@@ -31,6 +31,9 @@ while exitProgram != True:
     print("| 10. Clear Bets         |")
     print("| 11. Reset Money        |")
     print("| 12. Exit               |")
+    print("| 13. Bet split          |")
+    print("| 14. Bet street         |")
+    print("| 15. Bet six line       |")
     print("<<---------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
@@ -128,6 +131,15 @@ while exitProgram != True:
     elif (option == '12'):
         print("Come back soon. :-)")
         exitProgram = True
+
+    elif (option == '13'):
+        myGame.chooseDoubleBet(9, "S", 50)
+
+    elif (option == '14'):
+        myGame.chooseStreetBet(22, 50)
+
+    elif (option == '15'):
+        myGame.chooseSixLineBet(34, 31, 20)
 
     else:
         print("Invalid Option, must enter (1->12)")

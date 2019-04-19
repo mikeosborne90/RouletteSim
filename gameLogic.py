@@ -53,6 +53,36 @@ class gameLogic:
         self.betList.append(bet)
         print("You bet " + str(betSize) + " on highs(19-36)")
 
+    def chooseDozen1Bet(self, betSize):
+        bet = self.bet.betDozen1(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on highs(1-12)")
+
+    def chooseDozen2Bet(self, betSize):
+        bet = self.bet.betDozen2(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on highs(13-24)")
+
+    def chooseDozen3Bet(self, betSize):
+        bet = self.bet.betDozen3(betSize)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on highs(25-36)")
+
+    def chooseDoubleBet(self, number, direction, betSize):
+        bet = self.bet.betDouble(betSize, number, direction)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on " + str(bet[0][0]) + " and " + str(bet[0][1]))
+
+    def chooseStreetBet(self, number, betSize):
+        bet = self.bet.betStreet(betSize, number)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on street " + str(number) + " " + str(number+1) + " " + str(number+2))
+
+    def chooseSixLineBet(self, number1, number2, betSize):
+        bet = self.bet.betSixLine(betSize, number1, number2)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on Six Line " + str(number1) + " and " + str(number2))
+
     def didIWin(self):
         numberSelected = self.wheel.spinWheelEuropean()
         print("You landed on:", numberSelected)

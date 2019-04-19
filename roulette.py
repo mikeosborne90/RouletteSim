@@ -1,5 +1,37 @@
 import gameLogic as gL
 import player as ply
+import tkinter as tk
+
+# Board GUI ---------------------------------------------------------------------------
+root = tk.Tk()
+image = tk.PhotoImage(file="euroBoard.png")
+label = tk.Label(image=image)
+label.pack()
+
+oneDollar = tk.Button(root, text = '$1', fg ='black')
+oneDollar.place(x = 25, y =200)
+
+fiveDollar = tk.Button(root, text = '$5', fg ='black')
+fiveDollar.place(x = 25, y =300)
+
+tenDollar = tk.Button(root, text = '$10', fg ='black')
+tenDollar.place(x = 25, y =400)
+
+twentyDollar = tk.Button(root, text = '$20', fg ='black')
+twentyDollar.place(x = 25, y =500)
+
+fiftyDollar = tk.Button(root, text = '$50', fg ='black')
+fiftyDollar.place(x = 25, y =600)
+
+hundredDollar = tk.Button(root, text = '$100', fg ='black')
+hundredDollar.place(x = 10, y =700)
+
+redbutton = tk.Button(root, text = 'Red', fg ='red')
+redbutton.place(x = 110, y =360)
+
+root.mainloop()
+
+# End of Board GUI ------------------------------------------------------------------
 
 def intCheck(stringToCheck):
     """Used to verify a string can be converted to an integer."""
@@ -126,3 +158,4 @@ while exitProgram != True:
 
     else:
         print("Invalid Option, must enter (1->12)")
+

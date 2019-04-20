@@ -2,9 +2,10 @@ import tkinter as tk
 
 class tableUI:
     def __init__(self):
+        self.betAmount = 1  # set to $1 as default
         self.selectedNumbers = list([])
-        self.selectedSquares = list([]
-                                    )
+        self.selectedSquares = list([])
+
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
         self.root.resizable(0, 0)  # Makes image non-resizable
@@ -13,6 +14,24 @@ class tableUI:
         self.image = tk.PhotoImage(file="images/euroBoard.png")
         self.label = tk.Label(image=self.image)
         self.label.pack()
+
+        self.oneDollarButton = tk.Button(text = '$1', fg ='black', command=lambda n = 1: self.amountToBet(n))
+        self.oneDollarButton.place(x = 30, y =100)
+
+        self.fiveDollarButton = tk.Button(text = '$5', fg ='black', command=lambda n = 5: self.amountToBet(n))
+        self.fiveDollarButton.place(x = 30, y =150)
+
+        self.tenDollarButton = tk.Button(text = '$10', fg ='black', command=lambda n = 10: self.amountToBet(n))
+        self.tenDollarButton.place(x = 28, y =200)
+
+        self.twentyDollarButton = tk.Button(text = '$20', fg ='black', command=lambda n = 20: self.amountToBet(n))
+        self.twentyDollarButton.place(x = 28, y =250)
+
+        self.fiftyDollarButton = tk.Button(text = '$50', fg ='black', command=lambda n = 50: self.amountToBet(n))
+        self.fiftyDollarButton.place(x = 28, y =300)
+
+        self.hundredDollarButton = tk.Button(text = '$100', fg ='black', command=lambda n = 100: self.amountToBet(n))
+        self.hundredDollarButton.place(x = 25, y =350)
 
         self.numberButton = []
         self.numberImage = []
@@ -35,19 +54,19 @@ class tableUI:
             self.numberButton[i].place(x=xCoord, y=yCoord)
 
         self.squareButton = []
-        self.squareImage = tk.PhotoImage(file="images/037.png")
+        self.squareImage = tk.PhotoImage(file="images/dot.png")
 
         for i in range(0, 22):
             self.squareButton.append(tk.Button(image=self.squareImage, command=lambda n = i: self.placeSquareBet(n)))
 
-        yCoord = 138
+        yCoord = 142
         for i in range(0, 22):
             if (i % 2 == 0):
-                xCoord = 386
+                xCoord = 392
                 if (i > 1):
-                    yCoord += 59
+                    yCoord += 60
             else:
-                xCoord = 520
+                xCoord = 527
             self.squareButton[i].place(x=xCoord, y=yCoord)
 
 
@@ -55,12 +74,18 @@ class tableUI:
     def closeTableWindow(self):
         self.root.destroy()
 
+    def amountToBet(self, amount):
+        self.betAmount = amount
+
+    def amountFiveDollar(self):
+        self.betAmount = 5
+
     def placeNumberBet(self, number):
-        self.selectedNumbers.append(number)
+        self.selectedNumbers.append((number, self.betAmount))
         self.numberButton[number].configure(bg='yellow')
 
     def placeSquareBet(self, number):
-        self.selectedSquares.append(number)
+        self.selectedSquares.append((number, self.betAmount))
         self.squareButton[number].configure(bg='yellow')
 
     def receiveSelectedNumbers(self):
@@ -68,58 +93,3 @@ class tableUI:
 
     def receiveSquareSelections(self):
         return self.selectedSquares
-
-    # For Reference Only
-    # Board GUI ---------------------------------------------------------------------------
-    # root = tk.Tk()
-    # root.title('CSCI 154 Roulette Simulator')
-    # root.resizable(0,0) # Makes image non-resizable
-    #
-    # image = tk.PhotoImage(file="images/euroBoard.png")
-    # label = tk.Label(image=image)
-    # label.pack()
-    #
-    # numberButton = []
-    # numberImage = []
-    # for i in range(0, 37):
-    #     numberImage.append(tk.PhotoImage(file = "images/" + str(i) + ".png"))
-    #     numberButton.append(tk.Button(image = numberImage[i]))
-    #
-    # numberButton[0].place(x = 395, y = 38)
-    #
-    # yCoord = 102
-    # for i in range(1,37):
-    #     if(i % 3 == 1):
-    #         xCoord = 288
-    #         if(i > 1):
-    #             yCoord +=59
-    #     elif(i % 3 == 2):
-    #         xCoord = 422
-    #     else:
-    #         xCoord = 557
-    #     numberButton[i].place( x = xCoord, y = yCoord)
-
-    # oneDollar = tk.Button(root, text = '$1', fg ='black')
-    # oneDollar.place(x = 25, y =200)
-    #
-    # fiveDollar = tk.Button(root, text = '$5', fg ='black')
-    # fiveDollar.place(x = 25, y =300)
-    #
-    # tenDollar = tk.Button(root, text = '$10', fg ='black')
-    # tenDollar.place(x = 25, y =400)
-    #
-    # twentyDollar = tk.Button(root, text = '$20', fg ='black')
-    # twentyDollar.place(x = 25, y =500)
-    #
-    # fiftyDollar = tk.Button(root, text = '$50', fg ='black')
-    # fiftyDollar.place(x = 25, y =600)
-    #
-    # hundredDollar = tk.Button(root, text = '$100', fg ='black')
-    # hundredDollar.place(x = 10, y =700)
-    #
-    # redbutton = tk.Button(root, text = 'Red', fg ='red')
-    # redbutton.place(x = 110, y =360)
-
-    # root.mainloop()
-
-    # End of Board GUI ------------------------------------------------------------------

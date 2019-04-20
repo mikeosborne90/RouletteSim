@@ -119,17 +119,6 @@ class bet:
 
         return myBet
 
-    def betStreet(self, betAmt, numberChoice):
-        """bet = (3#'s in a column, multiplier, amount)"""
-        if (numberChoice % 3 == 1): # valid choice
-            myBet = [[numberChoice, numberChoice+1, numberChoice+2], 11, betAmt]
-
-        else:
-            myBet = [[-1, -1], 11, betAmt]  # invalid bet
-            print("Invalid location for street bet!")
-
-        return myBet
-
     def betSixLine(self, betAmt, numberChoice1, numberChoice2):
         """bet = (3#'s in a column, multiplier, amount)"""
         if(abs(numberChoice1 - numberChoice2) == 3): # column to left or right

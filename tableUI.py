@@ -15,6 +15,8 @@ class tableUI:
         self.selected2to1 = list([])
         self.selectedSplitDir1 = list([])
         self.selectedSplitDir2 = list([])
+        self.selectedSixLine = list([])
+        self.selectedStreet = list([])
 
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
@@ -135,6 +137,19 @@ class tableUI:
             else:
                 xCoord = 527
             self.squareButton[i].place(x=xCoord, y=yCoord)
+
+# ----------------------------- Six Line Buttons ---------------------------------------------------------------
+        self.sixLineButton = []
+        self.sixLineImage = tk.PhotoImage(file="images/dot.png")
+
+        for i in range(0, 11):
+            self.sixLineButton.append(tk.Button(image=self.sixLineImage, command=lambda n=i: self.placeSixLineBet(n)))
+
+        yCoord = 142
+        xCoord = 261
+        for i in range(0, 11):
+            self.sixLineButton[i].place(x=xCoord, y=yCoord)
+            yCoord += 60
 # ----------------------------- Split Buttons ---------------------------------------------------------------
         self.splitButtonDir1 = []
         self.splitImageDir1 = tk.PhotoImage(file="images/blackline.png")
@@ -173,6 +188,20 @@ class tableUI:
             if (i % 2 == 1):
                 yCoord += 60
 
+# ----------------------------- Street Buttons ---------------------------------------------------------------
+        self.streetButton = []
+        self.streetImage = tk.PhotoImage(file="images/blacklineVertical.png")
+
+        for i in range(0, 12):
+            self.streetButton.append(
+                tk.Button(image=self.streetImage, command=lambda n=i: self.placeStreetBet(n)))
+
+        yCoord = 114
+        xCoord = 263
+        for i in range(0, 12):
+            self.streetButton[i].place(x=xCoord, y=yCoord)
+            yCoord += 60
+
     def closeTableWindow(self):
         self.root.destroy()
 
@@ -201,6 +230,10 @@ class tableUI:
     def placeSquareBet(self, number):
         self.selectedSquares.append((number, self.betAmount))
         self.squareButton[number].configure(bg='yellow')
+
+    def placeSixLineBet(self, number):
+        self.selectedSixLine.append((number, self.betAmount))
+        self.sixLineButton[number].configure(bg='yellow')
 
     def placeSplitDir1Bet(self, number):
         self.selectedSplitDir1.append((number, self.betAmount))
@@ -242,6 +275,10 @@ class tableUI:
         self.selected2to1.append((number, self.betAmount))
         self.twoToOneButton[number].configure(bg='yellow')
 
+    def placeStreetBet(self, number):
+        self.selectedStreet.append((number, self.betAmount))
+        self.streetButton[number].configure(bg='yellow')
+
     def receiveSelectedNumbers(self):
         return self.selectedNumbers
 
@@ -277,3 +314,9 @@ class tableUI:
 
     def receiveSelectedSplitDir2(self):
         return self.selectedSplitDir2
+
+    def receiveSelectedSixLine(self):
+        return self.selectedSixLine
+
+    def receiveSelectedStreet(self):
+        return self.selectedStreet

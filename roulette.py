@@ -33,13 +33,22 @@ while exitProgram != True:
     if (option == '1'):
         euroTableUI = tableUI.tableUI()
         input("Enter any key to end selections.")
+        euroTableUI.closeTableWindow()
         numberChoice = euroTableUI.receiveSelectedNumbers()
         squareChoice = euroTableUI.receiveSquareSelections()
-        euroTableUI.closeTableWindow()
+        lowsChoice = euroTableUI.receiveLowsSelection()
+        highsChoice = euroTableUI.receiveHighsSelection()
+        evensChoice = euroTableUI.receiveEvensSelection()
+        oddsChoice = euroTableUI.receiveOddsSelection()
+        redChoice = euroTableUI.receiveRedSelection()
+        blackChoice = euroTableUI.receiveBlackSelection()
+        dozensChoice = euroTableUI.receiveSelectedDozens()
+        twoToOneChoice = euroTableUI.receiveSelected2to1()
+# Single Number Bets
         for i in range(len(numberChoice)):
             amount = numberChoice[i][1]
             myGame.chooseSingleBet(numberChoice[i][0], amount) #number, amount
-
+# Square Bets
         for i in squareChoice:
             amount = i[1]
             if(i[0] <= 1):
@@ -64,6 +73,44 @@ while exitProgram != True:
                 myGame.chooseSquareBet(i[0] + 10, i[0] + 13, amount)
             else: # i <= 21
                 myGame.chooseSquareBet(i[0] + 11, i[0] + 14, amount)
+# Lows Bet(1-18)
+        if(lowsChoice[0] is True):
+            amount = lowsChoice[1]
+            myGame.chooseLowsBet(amount)
+# Highs Bet (19-36)
+        if(highsChoice[0] is True):
+            amount = highsChoice[1]
+            myGame.chooseHighsBet(amount)
+# Evens Bet
+        if (evensChoice[0] is True):
+            amount = evensChoice[1]
+            myGame.chooseEvensBet(amount)
+# Odds Bet
+        if (oddsChoice[0] is True):
+            amount = oddsChoice[1]
+            myGame.chooseOddsBet(amount)
+# Red Bet
+        if (redChoice[0] is True):
+            amount = redChoice[1]
+            myGame.chooseRedsBet(amount)
+# Black Bet
+        if (blackChoice[0] is True):
+            amount = blackChoice[1]
+            myGame.chooseBlacksBet(amount)
+# Dozens Bet
+        for i in range(len(dozensChoice)):
+            amount = dozensChoice[i][1]
+            if(dozensChoice[i][0] == 0):
+                myGame.chooseDozen1Bet(amount)
+            elif(dozensChoice[i][0] == 1):
+                myGame.chooseDozen2Bet(amount)
+            else:
+                myGame.chooseDozen3Bet(amount)
+# 2-to-1 Bet
+        for i in range(len(twoToOneChoice)):
+            amount = twoToOneChoice[i][1]
+            row = twoToOneChoice[i][0]
+            myGame.chooseRowBet(row, amount)
 
     elif (option == '2'):
         numberOfRuns = input("How many spins?: ")

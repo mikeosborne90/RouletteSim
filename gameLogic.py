@@ -73,11 +73,6 @@ class gameLogic:
         self.betList.append(bet)
         print("You bet " + str(betSize) + " on " + str(bet[0][0]) + " and " + str(bet[0][1]))
 
-    def chooseStreetBet(self, number, betSize):
-        bet = self.bet.betStreet(betSize, number)
-        self.betList.append(bet)
-        print("You bet " + str(betSize) + " on street " + str(number) + " " + str(number+1) + " " + str(number+2))
-
     def chooseSixLineBet(self, number1, number2, betSize):
         bet = self.bet.betSixLine(betSize, number1, number2)
         self.betList.append(bet)

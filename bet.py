@@ -111,20 +111,11 @@ class bet:
                 print("row#:", secondNumberRow)
                 myBet = [[-1, -1], 17, betAmt] # invalid bet
                 print("Invalid row for double bet!")
+        elif((numberChoice == 1 or numberChoice == 2 or numberChoice == 3) and direction == "W"):   # hardcode for split with 0 bets
+            myBet = ([numberChoice, 0], 17, betAmt)
         else:
             myBet = [[-1, -1], 17 ,betAmt] # invalid bet
             print("Invalid row location for double bet!")
-
-        return myBet
-
-    def betStreet(self, betAmt, numberChoice):
-        """bet = (3#'s in a column, multiplier, amount)"""
-        if (numberChoice % 3 == 1): # valid choice
-            myBet = [[numberChoice, numberChoice+1, numberChoice+2], 11, betAmt]
-
-        else:
-            myBet = [[-1, -1], 11, betAmt]  # invalid bet
-            print("Invalid location for street bet!")
 
         return myBet
 

@@ -33,13 +33,26 @@ while exitProgram != True:
     if (option == '1'):
         euroTableUI = tableUI.tableUI()
         input("Enter any key to end selections.")
+        euroTableUI.closeTableWindow()
         numberChoice = euroTableUI.receiveSelectedNumbers()
         squareChoice = euroTableUI.receiveSquareSelections()
-        euroTableUI.closeTableWindow()
+        lowsChoice = euroTableUI.receiveLowsSelection()
+        highsChoice = euroTableUI.receiveHighsSelection()
+        evensChoice = euroTableUI.receiveEvensSelection()
+        oddsChoice = euroTableUI.receiveOddsSelection()
+        redChoice = euroTableUI.receiveRedSelection()
+        blackChoice = euroTableUI.receiveBlackSelection()
+        dozensChoice = euroTableUI.receiveSelectedDozens()
+        twoToOneChoice = euroTableUI.receiveSelected2to1()
+        splitBetsDir1 = euroTableUI.receiveSelectedSplitDir1()
+        splitBetsDir2 = euroTableUI.receiveSelectedSplitDir2()
+        sixLineBets = euroTableUI.receiveSelectedSixLine()
+        streetBets = euroTableUI.receiveSelectedStreet()
+        # Single Number Bets
         for i in range(len(numberChoice)):
             amount = numberChoice[i][1]
             myGame.chooseSingleBet(numberChoice[i][0], amount) #number, amount
-
+        # Square Bets
         for i in squareChoice:
             amount = i[1]
             if(i[0] <= 1):
@@ -64,6 +77,105 @@ while exitProgram != True:
                 myGame.chooseSquareBet(i[0] + 10, i[0] + 13, amount)
             else: # i <= 21
                 myGame.chooseSquareBet(i[0] + 11, i[0] + 14, amount)
+        # Lows Bet(1-18)
+        if(lowsChoice[0] is True):
+            amount = lowsChoice[1]
+            myGame.chooseLowsBet(amount)
+        # Highs Bet (19-36)
+        if(highsChoice[0] is True):
+            amount = highsChoice[1]
+            myGame.chooseHighsBet(amount)
+        # Evens Bet
+        if (evensChoice[0] is True):
+            amount = evensChoice[1]
+            myGame.chooseEvensBet(amount)
+        # Odds Bet
+        if (oddsChoice[0] is True):
+            amount = oddsChoice[1]
+            myGame.chooseOddsBet(amount)
+        # Red Bet
+        if (redChoice[0] is True):
+            amount = redChoice[1]
+            myGame.chooseRedsBet(amount)
+        # Black Bet
+        if (blackChoice[0] is True):
+            amount = blackChoice[1]
+            myGame.chooseBlacksBet(amount)
+        # Dozens Bet
+        for i in range(len(dozensChoice)):
+            amount = dozensChoice[i][1]
+            if(dozensChoice[i][0] == 0):
+                myGame.chooseDozen1Bet(amount)
+            elif(dozensChoice[i][0] == 1):
+                myGame.chooseDozen2Bet(amount)
+            else:
+                myGame.chooseDozen3Bet(amount)
+        # 2-to-1 Bet
+        for i in range(len(twoToOneChoice)):
+            amount = twoToOneChoice[i][1]
+            row = twoToOneChoice[i][0]
+            myGame.chooseRowBet(row, amount)
+        # Split Direction1 Bets
+        for i in splitBetsDir1:
+            amount = i[1]
+            myGame.chooseDoubleBet(i[0]+1, "W", amount) # W is for west which corresponds dir in table.py
+
+        # Split Direction2 Bets
+        for i in splitBetsDir2:
+            amount = i[1]
+            if(i[0] <= 1):
+                myGame.chooseDoubleBet(i[0] + 1, "N", amount)  # N is for west which corresponds dir in table.py
+            elif(i[0] <= 3):
+                myGame.chooseDoubleBet(i[0] + 2, "N", amount)
+            elif(i[0] <= 5):
+                myGame.chooseDoubleBet(i[0] + 3, "N", amount)
+            elif(i[0] <= 7):
+                myGame.chooseDoubleBet(i[0] + 4, "N", amount)
+            elif(i[0] <= 9):
+                myGame.chooseDoubleBet(i[0] + 5, "N", amount)
+            elif(i[0] <= 11):
+                myGame.chooseDoubleBet(i[0] + 6, "N", amount)
+            elif(i[0] <= 13):
+                myGame.chooseDoubleBet(i[0] + 7, "N", amount)
+            elif(i[0] <= 15):
+                myGame.chooseDoubleBet(i[0] + 8, "N", amount)
+            elif(i[0] <= 17):
+                myGame.chooseDoubleBet(i[0] + 9, "N", amount)
+            elif(i[0] <= 19):
+                myGame.chooseDoubleBet(i[0] + 10, "N", amount)
+            elif(i[0] <= 21):
+                myGame.chooseDoubleBet(i[0] + 11, "N", amount)
+            else: # i[0] <= 23
+                myGame.chooseDoubleBet(i[0] + 12, "N", amount)
+        # Six Line Bets
+        for i in sixLineBets:
+            amount = i[1]
+            if(i[0] == 0):
+                myGame.chooseSixLineBet(1,4,amount);
+            elif(i[0] == 1):
+                myGame.chooseSixLineBet(4,7,amount);
+            elif(i[0] == 2):
+                myGame.chooseSixLineBet(7,10,amount);
+            elif(i[0] == 3):
+                myGame.chooseSixLineBet(10,13,amount);
+            elif(i[0] == 4):
+                myGame.chooseSixLineBet(13,16,amount);
+            elif(i[0] == 5):
+                myGame.chooseSixLineBet(16,19,amount);
+            elif(i[0] == 6):
+                myGame.chooseSixLineBet(19,22,amount);
+            elif(i[0] == 7):
+                myGame.chooseSixLineBet(22,25,amount);
+            elif(i[0] == 8):
+                myGame.chooseSixLineBet(25,28,amount);
+            elif(i[0] == 9):
+                myGame.chooseSixLineBet(28,31,amount);
+            else: # i[0] == 10
+                myGame.chooseSixLineBet(31,34,amount);
+        # Street Bets
+        for i in streetBets:
+            amount = i[1]
+            myGame.chooseColumnBet(i[0],amount)
 
     elif (option == '2'):
         numberOfRuns = input("How many spins?: ")

@@ -1,4 +1,3 @@
-import re
 import table
 
 class bet:
@@ -135,16 +134,32 @@ class bet:
             if (numberChoice1 % 3 == 1): # valid choice
                 if(numberChoice1 > numberChoice2): # verify lower number is added to
                     numberChoice1 = numberChoice2
-                myBet = [[numberChoice1, numberChoice1+1, numberChoice1+2], 11, betAmt]
+                myBet = [[numberChoice1, numberChoice1+1, numberChoice1+2], 5, betAmt]
                 myBet[0].append(numberChoice1+3)
                 myBet[0].append(numberChoice1+4)
                 myBet[0].append(numberChoice1+5)
 
             else:
-                myBet = [[-1, -1, -1, -1, -1, -1], 11, betAmt]  # invalid bet
+                myBet = [[-1, -1, -1, -1, -1, -1], 5, betAmt]  # invalid bet
                 print("Invalid location for street bet!(1)")
         else:
-            myBet = [[-1, -1, -1, -1, -1, -1], 11, betAmt]  # invalid bet
+            myBet = [[-1, -1, -1, -1, -1, -1], 5, betAmt]  # invalid bet
             print("Invalid location for street bet!(2)")
+
+        return myBet
+
+
+    def betSquare(self, betAmt, numberChoice1, numberChoice2):
+        """bet = (3#'s in a column, multiplier, amount)"""
+        if (abs(numberChoice1 - numberChoice2) == 3):  # column to left or right
+            if (numberChoice1 % 3 == 1 or numberChoice1 % 3 == 2):  # valid choice
+                myBet = [[numberChoice1, numberChoice1 + 1, numberChoice2, numberChoice2 + 1], 8, betAmt]
+
+            else:
+                myBet = [[-1, -1, -1, -1], 8, betAmt]  # invalid bet
+                print("Invalid location for square bet!(1)")
+        else:
+            myBet = [[-1, -1, -1, -1], 8, betAmt]  # invalid bet
+            print("Invalid location for square bet!(2)")
 
         return myBet

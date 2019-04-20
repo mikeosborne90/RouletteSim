@@ -3,6 +3,8 @@ import tkinter as tk
 class tableUI:
     def __init__(self):
         self.selectedNumbers = list([])
+        self.selectedSquares = list([]
+                                    )
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
         self.root.resizable(0, 0)  # Makes image non-resizable
@@ -20,7 +22,6 @@ class tableUI:
 
         self.numberButton[0].place(x=395, y=38)
 
-
         yCoord = 102
         for i in range(1, 37):
             if (i % 3 == 1):
@@ -33,6 +34,24 @@ class tableUI:
                 xCoord = 557
             self.numberButton[i].place(x=xCoord, y=yCoord)
 
+        self.squareButton = []
+        self.squareImage = tk.PhotoImage(file="images/037.png")
+
+        for i in range(0, 22):
+            self.squareButton.append(tk.Button(image=self.squareImage, command=lambda n = i: self.placeSquareBet(n)))
+
+        yCoord = 138
+        for i in range(0, 22):
+            if (i % 2 == 0):
+                xCoord = 386
+                if (i > 1):
+                    yCoord += 59
+            else:
+                xCoord = 520
+            self.squareButton[i].place(x=xCoord, y=yCoord)
+
+
+
     def closeTableWindow(self):
         self.root.destroy()
 
@@ -40,8 +59,15 @@ class tableUI:
         self.selectedNumbers.append(number)
         self.numberButton[number].configure(bg='yellow')
 
+    def placeSquareBet(self, number):
+        self.selectedSquares.append(number)
+        self.squareButton[number].configure(bg='yellow')
+
     def receiveSelectedNumbers(self):
         return self.selectedNumbers
+
+    def receiveSquareSelections(self):
+        return self.selectedSquares
 
     # For Reference Only
     # Board GUI ---------------------------------------------------------------------------

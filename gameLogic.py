@@ -83,6 +83,11 @@ class gameLogic:
         self.betList.append(bet)
         print("You bet " + str(betSize) + " on Six Line " + str(number1) + " and " + str(number2))
 
+    def chooseSquareBet(self, number1, number2, betSize):
+        bet = self.bet.betSquare(betSize, number1, number2)
+        self.betList.append(bet)
+        print("You bet " + str(betSize) + " on square " + str(number1) + " and " + str(number2))
+
     def didIWin(self):
         numberSelected = self.wheel.spinWheelEuropean()
         print("You landed on:", numberSelected)

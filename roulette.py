@@ -45,6 +45,7 @@ while exitProgram != True:
         dozensChoice = euroTableUI.receiveSelectedDozens()
         twoToOneChoice = euroTableUI.receiveSelected2to1()
         splitBetsDir1 = euroTableUI.receiveSelectedSplitDir1()
+        splitBetsDir2 = euroTableUI.receiveSelectedSplitDir2()
 # Single Number Bets
         for i in range(len(numberChoice)):
             amount = numberChoice[i][1]
@@ -116,6 +117,34 @@ while exitProgram != True:
         for i in splitBetsDir1:
             amount = i[1]
             myGame.chooseDoubleBet(i[0]+1, "W", amount) # W is for west which corresponds dir in table.py
+
+# Split Direction2 Bets
+        for i in splitBetsDir2:
+            amount = i[1]
+            if(i[0] <= 1):
+                myGame.chooseDoubleBet(i[0] + 1, "N", amount)  # N is for west which corresponds dir in table.py
+            elif(i[0] <= 3):
+                myGame.chooseDoubleBet(i[0] + 2, "N", amount)
+            elif(i[0] <= 5):
+                myGame.chooseDoubleBet(i[0] + 3, "N", amount)
+            elif(i[0] <= 7):
+                myGame.chooseDoubleBet(i[0] + 4, "N", amount)
+            elif(i[0] <= 9):
+                myGame.chooseDoubleBet(i[0] + 5, "N", amount)
+            elif(i[0] <= 11):
+                myGame.chooseDoubleBet(i[0] + 6, "N", amount)
+            elif(i[0] <= 13):
+                myGame.chooseDoubleBet(i[0] + 7, "N", amount)
+            elif(i[0] <= 15):
+                myGame.chooseDoubleBet(i[0] + 8, "N", amount)
+            elif(i[0] <= 17):
+                myGame.chooseDoubleBet(i[0] + 9, "N", amount)
+            elif(i[0] <= 19):
+                myGame.chooseDoubleBet(i[0] + 10, "N", amount)
+            elif(i[0] <= 21):
+                myGame.chooseDoubleBet(i[0] + 11, "N", amount)
+            else: # i[0] <= 23
+                myGame.chooseDoubleBet(i[0] + 12, "N", amount)
 
     elif (option == '2'):
         numberOfRuns = input("How many spins?: ")

@@ -14,6 +14,7 @@ class tableUI:
         self.selectedDozens = list([])
         self.selected2to1 = list([])
         self.selectedSplitDir1 = list([])
+        self.selectedSplitDir2 = list([])
 
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
@@ -24,23 +25,23 @@ class tableUI:
         self.label = tk.Label(image=self.image)
         self.label.pack()
 #----------------------------- Dollar Amount Buttons ------------------------------------------------------
-        self.oneDollarButton = tk.Button(text = '$1', fg ='black', command=lambda n = 1: self.amountToBet(n))
+        self.oneDollarButton = tk.Button(text = '$1', fg ='black', command=self.amountToBet1)
         self.oneDollarButton.place(x = 30, y =100)
 
-        self.fiveDollarButton = tk.Button(text = '$5', fg ='black', command=lambda n = 5: self.amountToBet(n))
+        self.fiveDollarButton = tk.Button(text = '$5', fg ='black', command=self.amountToBet5)
         self.fiveDollarButton.place(x = 30, y =150)
 
-        self.tenDollarButton = tk.Button(text = '$10', fg ='black', command=lambda n = 10: self.amountToBet(n))
+        self.tenDollarButton = tk.Button(text = '$10', fg ='black', command=self.amountToBet10)
         self.tenDollarButton.place(x = 28, y =200)
 
-        self.twentyDollarButton = tk.Button(text = '$20', fg ='black', command=lambda n = 20: self.amountToBet(n))
+        self.twentyDollarButton = tk.Button(text = '$20', fg ='black', command=self.amountToBet20)
         self.twentyDollarButton.place(x = 28, y =250)
 
-        # self.fiftyDollarButton = tk.Button(text = '$50', fg ='black', command=lambda n = 50: self.amountToBet(n))
-        # self.fiftyDollarButton.place(x = 28, y =300)
-        #
-        # self.hundredDollarButton = tk.Button(text = '$100', fg ='black', command=lambda n = 100: self.amountToBet(n))
-        # self.hundredDollarButton.place(x = 25, y =350)
+        self.fiftyDollarButton = tk.Button(text = '$50', fg ='black', command=self.amountToBet50)
+        self.fiftyDollarButton.place(x = 28, y =300)
+
+        self.hundredDollarButton = tk.Button(text = '$100', fg ='black', command=self.amountToBet100)
+        self.hundredDollarButton.place(x = 25, y =350)
 # ----------------------------- Outside Bet Buttons ---------------------------------------------------------
         self.oneTo18Image = tk.PhotoImage(file="images/1-18.png")
         self.oneTo18Button = tk.Button(image=self.oneTo18Image, command=lambda n = True: self.placeLowsHighsBet(n))
@@ -153,12 +154,45 @@ class tableUI:
             self.splitButtonDir1[i].place(x=xCoord, y=yCoord)
             if(i % 3 == 2):
                 yCoord += 59
+        #Split Dir2-----------------------------
+        self.splitButtonDir2 = []
+        self.splitImageDir2 = tk.PhotoImage(file="images/blacklineVertical.png")
+
+        for i in range(0, 24):
+            self.splitButtonDir2.append(
+                tk.Button(image=self.splitImageDir2, command=lambda n=i: self.placeSplitDir2Bet(n)))
+
+        yCoord = 114
+        for i in range(0, 24):
+            if (i % 2 == 0):
+                xCoord = 396
+            else:
+                xCoord = 530
+
+            self.splitButtonDir2[i].place(x=xCoord, y=yCoord)
+            if (i % 2 == 1):
+                yCoord += 60
 
     def closeTableWindow(self):
         self.root.destroy()
 
-    def amountToBet(self, amount):
-        self.betAmount = amount
+    def amountToBet1(self):
+        self.betAmount = 1
+
+    def amountToBet5(self):
+        self.betAmount = 5
+
+    def amountToBet10(self):
+        self.betAmount = 10
+
+    def amountToBet20(self):
+        self.betAmount = 20
+
+    def amountToBet50(self):
+        self.betAmount = 50
+
+    def amountToBet100(self):
+        self.betAmount = 100
 
     def placeNumberBet(self, number):
         self.selectedNumbers.append((number, self.betAmount))
@@ -171,6 +205,10 @@ class tableUI:
     def placeSplitDir1Bet(self, number):
         self.selectedSplitDir1.append((number, self.betAmount))
         self.splitButtonDir1[number].configure(bg='yellow')
+
+    def placeSplitDir2Bet(self, number):
+        self.selectedSplitDir2.append((number, self.betAmount))
+        self.splitButtonDir2[number].configure(bg='yellow')
 
     def placeLowsHighsBet(self, option):
         if(option):
@@ -236,3 +274,6 @@ class tableUI:
 
     def receiveSelectedSplitDir1(self):
         return self.selectedSplitDir1
+
+    def receiveSelectedSplitDir2(self):
+        return self.selectedSplitDir2

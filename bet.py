@@ -111,6 +111,8 @@ class bet:
                 print("row#:", secondNumberRow)
                 myBet = [[-1, -1], 17, betAmt] # invalid bet
                 print("Invalid row for double bet!")
+        elif((numberChoice == 1 or numberChoice == 2 or numberChoice == 3) and direction == "W"):   # hardcode for split with 0 bets
+            myBet = ([numberChoice, 0], 17, betAmt)
         else:
             myBet = [[-1, -1], 17 ,betAmt] # invalid bet
             print("Invalid row location for double bet!")

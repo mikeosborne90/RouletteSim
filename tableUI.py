@@ -13,6 +13,7 @@ class tableUI:
         self.blackBet = (False, 1)
         self.selectedDozens = list([])
         self.selected2to1 = list([])
+        self.selectedSplitDir1 = list([])
 
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
@@ -133,8 +134,25 @@ class tableUI:
             else:
                 xCoord = 527
             self.squareButton[i].place(x=xCoord, y=yCoord)
+# ----------------------------- Split Buttons ---------------------------------------------------------------
+        self.splitButtonDir1 = []
+        self.splitImageDir1 = tk.PhotoImage(file="images/blackline.png")
 
+        for i in range(0, 36):
+            self.splitButtonDir1.append(tk.Button(image=self.splitImageDir1, command=lambda n = i: self.placeSplitDir1Bet(n)))
 
+        yCoord = 90
+        for i in range(0, 36):
+            if (i % 3 == 0): #left
+                xCoord = 324
+            elif(i % 3 == 1): #middle
+                xCoord = 458
+            else:             #right
+                xCoord = 594
+
+            self.splitButtonDir1[i].place(x=xCoord, y=yCoord)
+            if(i % 3 == 2):
+                yCoord += 59
 
     def closeTableWindow(self):
         self.root.destroy()
@@ -149,6 +167,10 @@ class tableUI:
     def placeSquareBet(self, number):
         self.selectedSquares.append((number, self.betAmount))
         self.squareButton[number].configure(bg='yellow')
+
+    def placeSplitDir1Bet(self, number):
+        self.selectedSplitDir1.append((number, self.betAmount))
+        self.splitButtonDir1[number].configure(bg='yellow')
 
     def placeLowsHighsBet(self, option):
         if(option):
@@ -211,3 +233,6 @@ class tableUI:
 
     def receiveSelected2to1(self):
         return self.selected2to1
+
+    def receiveSelectedSplitDir1(self):
+        return self.selectedSplitDir1

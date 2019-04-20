@@ -44,6 +44,7 @@ while exitProgram != True:
         blackChoice = euroTableUI.receiveBlackSelection()
         dozensChoice = euroTableUI.receiveSelectedDozens()
         twoToOneChoice = euroTableUI.receiveSelected2to1()
+        splitBetsDir1 = euroTableUI.receiveSelectedSplitDir1()
 # Single Number Bets
         for i in range(len(numberChoice)):
             amount = numberChoice[i][1]
@@ -111,6 +112,10 @@ while exitProgram != True:
             amount = twoToOneChoice[i][1]
             row = twoToOneChoice[i][0]
             myGame.chooseRowBet(row, amount)
+# Split Direction1 Bets
+        for i in splitBetsDir1:
+            amount = i[1]
+            myGame.chooseDoubleBet(i[0]+1, "W", amount) # W is for west which corresponds dir in table.py
 
     elif (option == '2'):
         numberOfRuns = input("How many spins?: ")

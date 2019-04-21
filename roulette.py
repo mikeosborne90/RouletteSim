@@ -22,10 +22,11 @@ while exitProgram != True:
     print("<<--Roulette Simulator-->>")
     print("| 1. Place Bets          |")
     print("| 2. Spin Wheel          |")
-    print("| 3. Show Bets           |")
-    print("| 4. Clear Bets          |")
-    print("| 5. Reset Money         |")
-    print("| 6. Exit                |")
+    print("| 3. Betting Strategies  |")
+    print("| 4. Show Bets           |")
+    print("| 5. Clear Bets          |")
+    print("| 6. Reset Money         |")
+    print("| 7. Exit                |")
     print("<<---------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
@@ -179,6 +180,7 @@ while exitProgram != True:
             myGame.chooseColumnBet(i[0],amount)
 
     elif (option == '2'):
+        myGame.saveOriginalBets()  # Used for martingale
         csvData = list([["run", "total"]])
         numberOfRuns = input("How many spins?: ")
         if (intCheck(numberOfRuns)):
@@ -194,21 +196,59 @@ while exitProgram != True:
             writer = csv.writer(csvFile)
             writer.writerows(csvData)
         csvFile.close()
+        myGame.loadOriginalBets()
 
     elif (option == '3'):
+        print("<<--Roulette Simulator-->>")
+        print("| 1. Martingale          |")
+        print("| 2. Rev Martingale      |")
+        print("| 3. D'Alembert          |")
+        print("| 4. Fibonacci           |")
+        print("| 5. Clear Bet Strats    |")
+        print("| 6. Back                |")
+        print("<<---------------------->>")
+
+        subOption = input("Enter Option: ")
+
+        if (subOption == '1'):
+            myGame.enableMartingale()
+            print("Martingale Enabled!")
+
+        elif (subOption == '2'):
+            myGame.enableRevMartingale()
+            print("Reverse Martingale Enabled!")
+
+        elif (subOption == '3'):
+            myGame.enableDAlembert()
+            print("D'Alembert Enabled!")
+
+        elif (subOption == '4'): # todo fibo
+            print("Fibonacci Enabled!")
+
+        elif (subOption == '5'):
+            myGame.disableBettingStrategies()
+            print("All betting strats cleared!")
+
+        elif (subOption == '6'):
+            print("Going Back to Main Menu!")
+
+        else:
+            print("Invalid Option, must enter (1->6)")
+
+    elif (option == '4'):
         print("([#(s) chosen], multiplier, bet amount)")
         myGame.showNumbersChosen()
 
-    elif (option == '4'):
+    elif (option == '5'):
         myGame.clearBets()
 
-    elif (option == '5'):
+    elif (option == '6'):
         player1.setMoney(initalPlayerFunds)
         print("Current Money: ", myGame.getTotalMoney())
 
-    elif (option == '6'):
+    elif (option == '7'):
         print("Come back soon. :-)")
         exitProgram = True
 
     else:
-        print("Invalid Option, must enter (1->6)")
+        print("Invalid Option, must enter (1->7)")

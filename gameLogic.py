@@ -7,6 +7,10 @@ class gameLogic:
         self.wheel = wheel.wheel()
         self.bet = bet.bet()
         self.betList = list([])
+        self.startingBetList = list([])
+        self.martingale = False
+        self.revMartingale = False
+        self.dAlembert = False
 
     def chooseRowBet(self, row, betSize):
         bet = self.bet.betRow(betSize, row)
@@ -96,6 +100,24 @@ class gameLogic:
                 win = True
                 result = result + ((i[1] * i[2]) + i[2])
 
+        if (self.martingale and win is False):  # if enabled double bet on loss for next bet
+            self.martingaleLoss()
+
+        if (self.martingale and win is True):  # if enabled bet inital amount
+            self.martingaleWin()
+
+        if (self.revMartingale and win is True): # opposite for reverse
+            self.martingaleLoss()                # martingale win does same as rev martingale loss
+
+        if (self.revMartingale and win is False):
+            self.martingaleWin()
+
+        if(self.dAlembert and win is True):
+            self.dAlembertWin()
+
+        if(self.dAlembert and win is False):
+            self.dAlembertLoss()
+
         self.player.removeFromMoney(totalBetAmount)
 
         if(win):
@@ -112,3 +134,65 @@ class gameLogic:
 
     def clearBets(self):
         self.betList = list([])
+
+    def martingaleLoss(self):
+        """If you lose double wager."""
+        for i in range(len(self.betList)):
+            self.betList[i] = list(self.betList[i])
+            self.betList[i][2] *= 2
+            self.betList[i] = tuple(self.betList[i])
+
+    def martingaleWin(self):
+        """If you win bet original bet again."""
+        if(len(self.betList) == len(self.startingBetList)):
+            for i in range(len(self.betList)):
+                self.betList[i] = list(self.betList[i])
+                self.betList[i][2] = self.startingBetList[i]
+                self.betList[i] = tuple(self.betList[i])
+        else:
+            print("Cannot do martingale when adding more bets than initial bets!")
+
+    def saveOriginalBets(self):
+        for i in self.betList:
+            self.startingBetList.append(i[2])
+
+    def loadOriginalBets(self):
+        for i in range(len(self.betList)):
+            self.betList[i] = list(self.betList[i])
+            self.betList[i][2] = self.startingBetList[i]
+            self.betList[i] = tuple(self.betList[i])
+
+    def dAlembertWin(self):
+        """If you win decrease by 1"""
+        for i in range(len(self.betList)):
+            self.betList[i] = list(self.betList[i])
+            if(self.betList[i][2] > 1): # don't decrement below $1
+                self.betList[i][2] -= 1
+            self.betList[i] = tuple(self.betList[i])
+
+    def dAlembertLoss(self):
+        """If you lose increase by 1"""
+        for i in range(len(self.betList)):
+            self.betList[i] = list(self.betList[i])
+            self.betList[i][2] += 1
+            self.betList[i] = tuple(self.betList[i])
+
+    def enableMartingale(self):
+        self.martingale = True
+        self.revMartingale = False
+        self.dAlembert = False
+
+    def enableRevMartingale(self):
+        self.revMartingale = True
+        self.martingale = False
+        self.dAlembert = False
+
+    def enableDAlembert(self):
+        self.dAlembert = True
+        self.revMartingale = False
+        self.martingale = False
+
+    def disableBettingStrategies(self):
+        self.martingale = False
+        self.revMartingale = False
+        self.dAlembert = False

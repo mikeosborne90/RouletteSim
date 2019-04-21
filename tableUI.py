@@ -21,7 +21,7 @@ class tableUI:
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
         self.root.resizable(0, 0)  # Makes image non-resizable
-        self.root.overrideredirect(True) # disable close window button
+        # self.root.overrideredirect(True) # disable close window button
 
         self.image = tk.PhotoImage(file="images/euroBoard.png")
         self.label = tk.Label(image=self.image)
@@ -39,11 +39,17 @@ class tableUI:
         self.twentyDollarButton = tk.Button(text = '$20', fg ='black', command=self.amountToBet20)
         self.twentyDollarButton.place(x = 28, y =250)
 
+        self.twentyFiveDollarButton = tk.Button(text='$25', fg='black', command=self.amountToBet25)
+        self.twentyFiveDollarButton.place(x=28, y=300)
+
         self.fiftyDollarButton = tk.Button(text = '$50', fg ='black', command=self.amountToBet50)
-        self.fiftyDollarButton.place(x = 28, y =300)
+        self.fiftyDollarButton.place(x = 28, y =350)
+
+        self.seventyDollarButton = tk.Button(text = '$70', fg ='black', command=self.amountToBet70)
+        self.seventyDollarButton.place(x = 28, y =400)
 
         self.hundredDollarButton = tk.Button(text = '$100', fg ='black', command=self.amountToBet100)
-        self.hundredDollarButton.place(x = 25, y =350)
+        self.hundredDollarButton.place(x = 25, y =450)
 # ----------------------------- Outside Bet Buttons ---------------------------------------------------------
         self.oneTo18Image = tk.PhotoImage(file="images/1-18.png")
         self.oneTo18Button = tk.Button(image=self.oneTo18Image, command=lambda n = True: self.placeLowsHighsBet(n))
@@ -207,21 +213,91 @@ class tableUI:
 
     def amountToBet1(self):
         self.betAmount = 1
+        self.oneDollarButton.configure(bg='yellow')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='white')
 
     def amountToBet5(self):
         self.betAmount = 5
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='yellow')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='white')
 
     def amountToBet10(self):
         self.betAmount = 10
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='yellow')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='white')
 
     def amountToBet20(self):
         self.betAmount = 20
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='yellow')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='white')
+
+    def amountToBet25(self):
+        self.betAmount = 25
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='yellow')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='white')
 
     def amountToBet50(self):
         self.betAmount = 50
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='yellow')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='white')
+
+    def amountToBet70(self):
+        self.betAmount = 70
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='yellow')
+        self.hundredDollarButton.configure(bg='white')
 
     def amountToBet100(self):
         self.betAmount = 100
+        self.oneDollarButton.configure(bg='white')
+        self.fiveDollarButton.configure(bg='white')
+        self.tenDollarButton.configure(bg='white')
+        self.twentyDollarButton.configure(bg='white')
+        self.twentyFiveDollarButton.configure(bg='white')
+        self.fiftyDollarButton.configure(bg='white')
+        self.seventyDollarButton.configure(bg='white')
+        self.hundredDollarButton.configure(bg='yellow')
 
     def placeNumberBet(self, number):
         self.selectedNumbers.append((number, self.betAmount))

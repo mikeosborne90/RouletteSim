@@ -1,6 +1,7 @@
 import gameLogic as gL
 import player as ply
 import tableUI
+import csv
 
 def intCheck(stringToCheck):
     """Used to verify a string can be converted to an integer."""
@@ -33,7 +34,7 @@ while exitProgram != True:
     if (option == '1'):
         euroTableUI = tableUI.tableUI()
         input("Enter any key to end selections.")
-        euroTableUI.closeTableWindow()
+        # euroTableUI.closeTableWindow()
         numberChoice = euroTableUI.receiveSelectedNumbers()
         squareChoice = euroTableUI.receiveSquareSelections()
         lowsChoice = euroTableUI.receiveLowsSelection()
@@ -178,15 +179,21 @@ while exitProgram != True:
             myGame.chooseColumnBet(i[0],amount)
 
     elif (option == '2'):
+        csvData = list([["run", "total"]])
         numberOfRuns = input("How many spins?: ")
-
         if (intCheck(numberOfRuns)):
             for i in range(int(numberOfRuns)):
                 myGame.showNumbersChosen()
                 myGame.didIWin();
                 print("Current Money: ",myGame.getTotalMoney())
+                csvData.append([i+1, myGame.getTotalMoney()])  # run# and currentMoney
         else:
             print("Needs to be an integer value!")
+
+        with open('results.csv', 'w') as csvFile:
+            writer = csv.writer(csvFile)
+            writer.writerows(csvData)
+        csvFile.close()
 
     elif (option == '3'):
         print("([#(s) chosen], multiplier, bet amount)")

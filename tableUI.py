@@ -1,7 +1,8 @@
 import tkinter as tk
 
 class tableUI:
-    def __init__(self):
+    def __init__(self, version):
+        self.version = version # 1 for Euro, 2 for American
         self.betAmount = 1  # set to $1 as default
         self.selectedNumbers = list([])
         self.selectedSquares = list([])
@@ -21,9 +22,14 @@ class tableUI:
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
         self.root.resizable(0, 0)  # Makes image non-resizable
+        if(version == 1):
+            self.image = tk.PhotoImage(file="images/euroBoard.png")
+        elif(version == 2):
+            self.image = tk.PhotoImage(file="images/amerBoard.png")
+        else:
+            self.image = tk.PhotoImage(file="images/noZeroBoard.png")
 
-        self.image = tk.PhotoImage(file="images/euroBoard.png")
-        self.label = tk.Label(image=self.image)
+        self.label = tk.Label(self.root, image=self.image)
         self.label.pack()
 #----------------------------- Dollar Amount Buttons ------------------------------------------------------
         self.oneDollarButton = tk.Button(text = '$1', fg ='black', command=self.amountToBet1)
@@ -113,7 +119,14 @@ class tableUI:
             self.numberImage.append(tk.PhotoImage(file="images/" + str(i) + ".png"))
             self.numberButton.append(tk.Button(image=self.numberImage[i], command=lambda n = i: self.placeNumberBet(n)))
 
-        self.numberButton[0].place(x=395, y=38)
+        if(self.version == 1):
+            self.numberButton[0].place(x=426, y=46)
+        elif(self.version == 2): # american board
+            self.numberButton[0].place(x=354, y=46)
+            self.doubleZeroButtonImage = tk.PhotoImage(file="images/00.png")
+            self.doubleZeroButton = tk.Button(image=self.doubleZeroButtonImage, command=lambda n = 37: self.placeNumberBet(n)) # 00 represented as 37
+            self.doubleZeroButton.place(x=496, y=46)
+        #if noZero board no need to place 0 buttons
 
         yCoord = 102
         for i in range(1, 37):
@@ -300,7 +313,10 @@ class tableUI:
 
     def placeNumberBet(self, number):
         self.selectedNumbers.append((number, self.betAmount))
-        self.numberButton[number].configure(bg='yellow')
+        if(number == 37):  #check for 00 aka 37
+            self.doubleZeroButton.configure(bg='yellow')
+        else:
+            self.numberButton[number].configure(bg='yellow')
 
     def placeSquareBet(self, number):
         self.selectedSquares.append((number, self.betAmount))

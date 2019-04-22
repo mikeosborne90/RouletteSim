@@ -2,7 +2,8 @@ import wheel
 import bet
 
 class gameLogic:
-    def __init__(self, player):
+    def __init__(self, player, version):
+        self.version = version
         self.player = player
         self.wheel = wheel.wheel()
         self.bet = bet.bet()
@@ -93,7 +94,13 @@ class gameLogic:
         print("You bet " + str(betSize) + " on square " + str(number1) + " and " + str(number2))
 
     def didIWin(self):
-        numberSelected = self.wheel.spinWheelEuropean()
+        if(self.version == 1): # 1 for European
+            numberSelected = self.wheel.spinWheelEuropean()
+        elif(self.version == 2): # 2 for American
+            numberSelected = self.wheel.spinWheelAmerican()
+        else:
+            numberSelected = self.wheel.spinWheelNoZeroes()
+
         print("You landed on:", numberSelected)
         win = False
         result = 0

@@ -20,29 +20,24 @@ exitProgram = False
 
 while exitProgram != True:
     print("~~[Current Money:$"+ str(myGame.getTotalMoney())+ "]~~")
-    print("<<--Roulette Simulator-->>")
-    print("| 1. Place Bets(euro)    |")
-    print("| 2. Spin Wheel          |")
-    print("| 3. Betting Strategies  |")
-    print("| 4. Run 5 times         |")
-    print("| 5. Show Bets           |")
-    print("| 6. Clear Bets          |")
-    print("| 7. Clear Bet Strats    |")
-    print("| 8. Reset Money         |")
-    print("| 9. Exit                |")
-    print("| 4. Show Bets           |")
-    print("| 5. Clear Bets          |")
-    print("| 6. Clear Bet Strats    |")
-    print("| 7. Reset Money         |")
-    print("| 8. Exit                |")
-    print("| 9. Place Bets(amer)    |")
-    print("| 10.Place Bets(no zero) |")
-    print("<<---------------------->>")
+    print("<<--Roulette Simulator--->>")
+    print("| 1.  Place Bets(euro)    |")
+    print("| 2.  Place Bets(amer)    |")
+    print("| 3.  Place Bets(no zero) |")
+    print("| 4.  Spin Wheel          |")
+    print("| 5.  Betting Strategies  |")
+    print("| 6.  Run 5 times         |")
+    print("| 7.  Show Bets           |")
+    print("| 8.  Clear Bets          |")
+    print("| 9.  Clear Bet Strats    |")
+    print("| 10. Reset Money         |")
+    print("| 11. Exit                |")
+    print("<<----------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
     option = input("Enter Option: ")
 
-    if (option == '1' or option == '9' or option == '10'):
+    if (option == '1' or option == '2' or option == '3'):
         for aWindow in windows:   # clears any existing windows
             try:
                 aWindow.closeTableWindow()
@@ -52,7 +47,7 @@ while exitProgram != True:
 
         if(option == '1'):
             tableUIWindow = tableUI.tableUI(1)  # 1 for european
-        elif(option == '9'):
+        elif(option == '2'):
             myGame = gL.gameLogic(player1, 2)
             tableUIWindow = tableUI.tableUI(2)  # 2 for american
         else:
@@ -204,7 +199,7 @@ while exitProgram != True:
             amount = i[1]
             myGame.chooseColumnBet(i[0],amount)
 
-    elif (option == '2'):
+    elif (option == '4'):
         myGame.saveOriginalBets()  # Used for martingale
         csvData = list([["run", "total"]])
         numberOfRuns = input("How many spins?: ")
@@ -230,15 +225,15 @@ while exitProgram != True:
         myGame.loadOriginalBets()
         myGame.clearOriginalBets()
 
-    elif (option == '3'):
-        print("<<--Roulette Simulator-->>")
-        print("| 1. Martingale          |")
-        print("| 2. Rev Martingale      |")
-        print("| 3. D'Alembert(full run)|")
-        print("| 4. D'Alembert(win=loss)|")
-        print("| 5. Fibonacci           |")
-        print("| 6. Back                |")
-        print("<<---------------------->>")
+    elif (option == '5'):
+        print("<<--Roulette Simulator--->>")
+        print("| 1.  Martingale          |")
+        print("| 2.  Rev Martingale      |")
+        print("| 3.  D'Alembert(full run)|")
+        print("| 4.  D'Alembert(win=loss)|")
+        print("| 5.  Fibonacci           |")
+        print("| 6.  Back                |")
+        print("<<----------------------->>")
 
         subOption = input("Enter Option: ")
 
@@ -270,7 +265,7 @@ while exitProgram != True:
         else:
             print("Invalid Option, must enter (1->6)")
 
-    elif (option == '4'):
+    elif (option == '6'):
         numberOfRuns = input("How many spins?: ")
 
         for x in range(1, 6):
@@ -299,7 +294,11 @@ while exitProgram != True:
             myGame.loadOriginalBets()
             myGame.clearOriginalBets()
 
-    elif (option == '5'):
+    elif (option == '7'):
+        print("([#(s) chosen], multiplier, bet amount)")
+        myGame.showNumbersChosen()
+
+    elif (option == '8'):
         for aWindow in windows:   # clears any existing windows
             try:
                 aWindow.closeTableWindow()
@@ -310,20 +309,17 @@ while exitProgram != True:
         print("([#(s) chosen], multiplier, bet amount)")
         myGame.showNumbersChosen()
 
-    elif (option == '6'):
-        myGame.clearBets()
-
-    elif (option == '7'):
+    elif (option == '9'):
         myGame.disableBettingStrategies()
         print("All betting strats cleared!")
 
-    elif (option == '8'):
+    elif (option == '10'):
         player1.setMoney(initalPlayerFunds)
         print("Current Money: ", myGame.getTotalMoney())
 
-    elif (option == '9'):
+    elif (option == '11'):
         print("Come back soon. :-)")
         exitProgram = True
 
     else:
-        print("Invalid Option, must enter (1->9)")
+        print("Invalid Option, must enter (1->11)")

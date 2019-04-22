@@ -24,6 +24,12 @@ while exitProgram != True:
     print("| 1. Place Bets(euro)    |")
     print("| 2. Spin Wheel          |")
     print("| 3. Betting Strategies  |")
+    print("| 4. Run 5 times         |")
+    print("| 5. Show Bets           |")
+    print("| 6. Clear Bets          |")
+    print("| 7. Clear Bet Strats    |")
+    print("| 8. Reset Money         |")
+    print("| 9. Exit                |")
     print("| 4. Show Bets           |")
     print("| 5. Clear Bets          |")
     print("| 6. Clear Bet Strats    |")
@@ -265,8 +271,33 @@ while exitProgram != True:
             print("Invalid Option, must enter (1->6)")
 
     elif (option == '4'):
-        print("([#(s) chosen], multiplier, bet amount)")
-        myGame.showNumbersChosen()
+        numberOfRuns = input("How many spins?: ")
+
+        for x in range(1, 6):
+            player1.setMoney(initalPlayerFunds)
+            myGame.saveOriginalBets()  # Used for martingale
+            csvData = list([["run", "total"]])
+            if (intCheck(numberOfRuns)):
+                twentyPercentOfRuns = int(int(numberOfRuns) * 0.20)
+                for i in range(int(numberOfRuns)):
+                    myGame.showNumbersChosen()
+                    myGame.didIWin()
+                    print("Run#" + str(i + 1) + " Current Money: " + str(myGame.getTotalMoney()))
+                    csvData.append([i + 1, myGame.getTotalMoney()])  # run# and currentMoney
+                    if (myGame.dAlembertEqualWinLoss is True):
+                        if ((i + 1) >= twentyPercentOfRuns and myGame.returnWinCount() == myGame.returnLossCount()):
+                            break
+                print("Wins: " + str(myGame.returnWinCount()) + ", Losses: " + str(myGame.returnLossCount()))
+                myGame.resetWinAndLossCount()
+            else:
+                print("Needs to be an integer value!")
+
+            with open('results'+str(x)+'.csv', 'w') as csvFile:
+                writer = csv.writer(csvFile)
+                writer.writerows(csvData)
+            csvFile.close()
+            myGame.loadOriginalBets()
+            myGame.clearOriginalBets()
 
     elif (option == '5'):
         for aWindow in windows:   # clears any existing windows
@@ -276,18 +307,23 @@ while exitProgram != True:
                 pass
         windows.clear()
         myGame.clearBets()
+        print("([#(s) chosen], multiplier, bet amount)")
+        myGame.showNumbersChosen()
 
     elif (option == '6'):
+        myGame.clearBets()
+
+    elif (option == '7'):
         myGame.disableBettingStrategies()
         print("All betting strats cleared!")
 
-    elif (option == '7'):
+    elif (option == '8'):
         player1.setMoney(initalPlayerFunds)
         print("Current Money: ", myGame.getTotalMoney())
 
-    elif (option == '8'):
+    elif (option == '9'):
         print("Come back soon. :-)")
         exitProgram = True
 
     else:
-        print("Invalid Option, must enter (1->8)")
+        print("Invalid Option, must enter (1->9)")

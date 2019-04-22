@@ -23,7 +23,7 @@ class tableUI:
         self.root.resizable(0, 0)  # Makes image non-resizable
 
         self.image = tk.PhotoImage(file="images/euroBoard.png")
-        self.label = tk.Label(image=self.image)
+        self.label = tk.Label(self.root, image=self.image)
         self.label.pack()
 #----------------------------- Dollar Amount Buttons ------------------------------------------------------
         self.oneDollarButton = tk.Button(text = '$1', fg ='black', command=self.amountToBet1)

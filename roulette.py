@@ -25,8 +25,9 @@ while exitProgram != True:
     print("| 3. Betting Strategies  |")
     print("| 4. Show Bets           |")
     print("| 5. Clear Bets          |")
-    print("| 6. Reset Money         |")
-    print("| 7. Exit                |")
+    print("| 6. Clear Bet Strats    |")
+    print("| 7. Reset Money         |")
+    print("| 8. Exit                |")
     print("<<---------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
@@ -35,7 +36,6 @@ while exitProgram != True:
     if (option == '1'):
         euroTableUI = tableUI.tableUI()
         input("Enter any key to end selections.")
-        # euroTableUI.closeTableWindow()
         numberChoice = euroTableUI.receiveSelectedNumbers()
         squareChoice = euroTableUI.receiveSquareSelections()
         lowsChoice = euroTableUI.receiveLowsSelection()
@@ -184,13 +184,17 @@ while exitProgram != True:
         csvData = list([["run", "total"]])
         numberOfRuns = input("How many spins?: ")
         if (intCheck(numberOfRuns)):
+            twentyPercentOfRuns = int(int(numberOfRuns) * 0.20)
             for i in range(int(numberOfRuns)):
-                # if(i == 0 or i == 1): # used to initialize fibonacci
-                #     myGame.updateSpinCount()
                 myGame.showNumbersChosen()
                 myGame.didIWin();
-                print("Current Money: ",myGame.getTotalMoney())
+                print("Run#"+str(i+1)+" Current Money: "+ str(myGame.getTotalMoney()))
                 csvData.append([i+1, myGame.getTotalMoney()])  # run# and currentMoney
+                if(myGame.dAlembertEqualWinLoss is True):
+                    if((i+1) >= twentyPercentOfRuns and myGame.returnWinCount() == myGame.returnLossCount()):
+                        break
+            print("Wins: " + str(myGame.returnWinCount()) + ", Losses: " + str(myGame.returnLossCount()))
+            myGame.resetWinAndLossCount()
         else:
             print("Needs to be an integer value!")
 
@@ -199,14 +203,15 @@ while exitProgram != True:
             writer.writerows(csvData)
         csvFile.close()
         myGame.loadOriginalBets()
+        myGame.clearOriginalBets()
 
     elif (option == '3'):
         print("<<--Roulette Simulator-->>")
         print("| 1. Martingale          |")
         print("| 2. Rev Martingale      |")
-        print("| 3. D'Alembert          |")
-        print("| 4. Fibonacci           |")
-        print("| 5. Clear Bet Strats    |")
+        print("| 3. D'Alembert(full run)|")
+        print("| 4. D'Alembert(win=loss)|")
+        print("| 5. Fibonacci           |")
         print("| 6. Back                |")
         print("<<---------------------->>")
 
@@ -221,16 +226,18 @@ while exitProgram != True:
             print("Reverse Martingale Enabled!")
 
         elif (subOption == '3'):
+            myGame.disableDAlembertWinsEqualsLosses()
             myGame.enableDAlembert()
-            print("D'Alembert Enabled!")
+            print("D'Alembert(full run) Enabled!")
 
         elif (subOption == '4'):
-            myGame.enableFibonacci()
-            print("Fibonacci Enabled!")
+            myGame.enableDAlembert()
+            myGame.enableDAlembertWinsEqualsLosses()
+            print("D'Alembert(win=loss) Enabled!")
 
         elif (subOption == '5'):
-            myGame.disableBettingStrategies()
-            print("All betting strats cleared!")
+            myGame.enableFibonacci()
+            print("Fibonacci Enabled!")
 
         elif (subOption == '6'):
             print("Going Back to Main Menu!")
@@ -246,12 +253,16 @@ while exitProgram != True:
         myGame.clearBets()
 
     elif (option == '6'):
+        myGame.disableBettingStrategies()
+        print("All betting strats cleared!")
+
+    elif (option == '7'):
         player1.setMoney(initalPlayerFunds)
         print("Current Money: ", myGame.getTotalMoney())
 
-    elif (option == '7'):
+    elif (option == '8'):
         print("Come back soon. :-)")
         exitProgram = True
 
     else:
-        print("Invalid Option, must enter (1->7)")
+        print("Invalid Option, must enter (1->8)")

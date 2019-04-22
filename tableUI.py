@@ -21,7 +21,6 @@ class tableUI:
         self.root = tk.Tk()
         self.root.title('CSCI 154 Roulette Simulator')
         self.root.resizable(0, 0)  # Makes image non-resizable
-        # self.root.overrideredirect(True) # disable close window button
 
         self.image = tk.PhotoImage(file="images/euroBoard.png")
         self.label = tk.Label(image=self.image)

@@ -185,6 +185,8 @@ while exitProgram != True:
         numberOfRuns = input("How many spins?: ")
         if (intCheck(numberOfRuns)):
             for i in range(int(numberOfRuns)):
+                # if(i == 0 or i == 1): # used to initialize fibonacci
+                #     myGame.updateSpinCount()
                 myGame.showNumbersChosen()
                 myGame.didIWin();
                 print("Current Money: ",myGame.getTotalMoney())
@@ -222,7 +224,8 @@ while exitProgram != True:
             myGame.enableDAlembert()
             print("D'Alembert Enabled!")
 
-        elif (subOption == '4'): # todo fibo
+        elif (subOption == '4'):
+            myGame.enableFibonacci()
             print("Fibonacci Enabled!")
 
         elif (subOption == '5'):

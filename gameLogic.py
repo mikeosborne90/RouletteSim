@@ -12,8 +12,10 @@ class gameLogic:
         self.martingale = False
         self.revMartingale = False
         self.dAlembert = False
+        self.dAlembertEqualWinLoss = False
         self.fibonacci = False
-        # self.spinCount = 0  # used for fibonacci initialization
+        self.winCount = 0
+        self.lossCount = 0
 
     def chooseRowBet(self, row, betSize):
         bet = self.bet.betRow(betSize, row)
@@ -103,6 +105,11 @@ class gameLogic:
                 win = True
                 result = result + ((i[1] * i[2]) + i[2])
 
+        if(win):
+            self.winCount += 1
+        else:
+            self.lossCount += 1
+
         if (self.martingale and win is False):  # if enabled double bet on loss for next bet
             self.martingaleLoss()
 
@@ -172,6 +179,9 @@ class gameLogic:
             self.betList[i][2] = self.startingBetAmountList[i]
             self.betList[i] = tuple(self.betList[i])
 
+    def clearOriginalBets(self):
+        self.startingBetAmountList.clear()
+
     def dAlembertWin(self):
         """If you win decrease by 1"""
         for i in range(len(self.betList)):
@@ -193,7 +203,9 @@ class gameLogic:
         if(listLength <= 3):
             betSize = 1
         else:
-            betSize = self.prevBetAmountList[listLength-2]
+            betSize = self.prevBetAmountList[listLength-3] # go back to 2 #'s before
+            self.prevBetAmountList.pop() # remove last 2 elements on win
+            self.prevBetAmountList.pop()
 
         for i in range(len(self.betList)):
             self.betList[i] = list(self.betList[i])
@@ -233,6 +245,12 @@ class gameLogic:
         self.martingale = False
         self.fibonacci = False
 
+    def enableDAlembertWinsEqualsLosses(self):
+        self.dAlembertEqualWinLoss = True
+
+    def disableDAlembertWinsEqualsLosses(self):
+        self.dAlembertEqualWinLoss = False
+
     def enableFibonacci(self):
         self.fibonacci = True
         self.dAlembert = False
@@ -249,10 +267,15 @@ class gameLogic:
         self.martingale = False
         self.revMartingale = False
         self.dAlembert = False
+        self.dAlembertEqualWinLoss = False
         self.fibonacci = False
 
-    # def returnSpinCount(self):
-    #     return self.spinCount
-    #
-    # def updateSpinCount(self):
-    #     self.spinCount += 1
+    def returnWinCount(self):
+        return self.winCount
+
+    def returnLossCount(self):
+        return self.lossCount
+
+    def resetWinAndLossCount(self):
+        self.winCount = 0
+        self.lossCount = 0

@@ -13,14 +13,15 @@ def intCheck(stringToCheck):
 
 initalPlayerFunds = 1000 #Player starts with arbitrary amount of $1000
 player1 = ply.player(initalPlayerFunds)
-myGame = gL.gameLogic(player1)
+myGame = gL.gameLogic(player1, 1) # 1 = european version by default
+windows = list([])
 
 exitProgram = False
 
 while exitProgram != True:
     print("~~[Current Money:$"+ str(myGame.getTotalMoney())+ "]~~")
     print("<<--Roulette Simulator-->>")
-    print("| 1. Place Bets          |")
+    print("| 1. Place Bets(euro)    |")
     print("| 2. Spin Wheel          |")
     print("| 3. Betting Strategies  |")
     print("| 4. Show Bets           |")
@@ -28,28 +29,46 @@ while exitProgram != True:
     print("| 6. Clear Bet Strats    |")
     print("| 7. Reset Money         |")
     print("| 8. Exit                |")
+    print("| 9. Place Bets(amer)    |")
+    print("| 10.Place Bets(no zero) |")
     print("<<---------------------->>")
     print("****[Bottom Line:$"+ str(myGame.getTotalMoney()-1000)+ "]****")
 
     option = input("Enter Option: ")
 
-    if (option == '1'):
-        euroTableUI = tableUI.tableUI()
+    if (option == '1' or option == '9' or option == '10'):
+        for aWindow in windows:   # clears any existing windows
+            try:
+                aWindow.closeTableWindow()
+            except:
+                pass
+        windows.clear()
+
+        if(option == '1'):
+            tableUIWindow = tableUI.tableUI(1)  # 1 for european
+        elif(option == '9'):
+            myGame = gL.gameLogic(player1, 2)
+            tableUIWindow = tableUI.tableUI(2)  # 2 for american
+        else:
+            myGame = gL.gameLogic(player1, 3)
+            tableUIWindow = tableUI.tableUI(3)  # 2 for american
+
+        windows.append(tableUIWindow)
         input("Enter any key to end selections.")
-        numberChoice = euroTableUI.receiveSelectedNumbers()
-        squareChoice = euroTableUI.receiveSquareSelections()
-        lowsChoice = euroTableUI.receiveLowsSelection()
-        highsChoice = euroTableUI.receiveHighsSelection()
-        evensChoice = euroTableUI.receiveEvensSelection()
-        oddsChoice = euroTableUI.receiveOddsSelection()
-        redChoice = euroTableUI.receiveRedSelection()
-        blackChoice = euroTableUI.receiveBlackSelection()
-        dozensChoice = euroTableUI.receiveSelectedDozens()
-        twoToOneChoice = euroTableUI.receiveSelected2to1()
-        splitBetsDir1 = euroTableUI.receiveSelectedSplitDir1()
-        splitBetsDir2 = euroTableUI.receiveSelectedSplitDir2()
-        sixLineBets = euroTableUI.receiveSelectedSixLine()
-        streetBets = euroTableUI.receiveSelectedStreet()
+        numberChoice = tableUIWindow.receiveSelectedNumbers()
+        squareChoice = tableUIWindow.receiveSquareSelections()
+        lowsChoice = tableUIWindow.receiveLowsSelection()
+        highsChoice = tableUIWindow.receiveHighsSelection()
+        evensChoice = tableUIWindow.receiveEvensSelection()
+        oddsChoice = tableUIWindow.receiveOddsSelection()
+        redChoice = tableUIWindow.receiveRedSelection()
+        blackChoice = tableUIWindow.receiveBlackSelection()
+        dozensChoice = tableUIWindow.receiveSelectedDozens()
+        twoToOneChoice = tableUIWindow.receiveSelected2to1()
+        splitBetsDir1 = tableUIWindow.receiveSelectedSplitDir1()
+        splitBetsDir2 = tableUIWindow.receiveSelectedSplitDir2()
+        sixLineBets = tableUIWindow.receiveSelectedSixLine()
+        streetBets = tableUIWindow.receiveSelectedStreet()
         # Single Number Bets
         for i in range(len(numberChoice)):
             amount = numberChoice[i][1]
@@ -187,7 +206,7 @@ while exitProgram != True:
             twentyPercentOfRuns = int(int(numberOfRuns) * 0.20)
             for i in range(int(numberOfRuns)):
                 myGame.showNumbersChosen()
-                myGame.didIWin();
+                myGame.didIWin()
                 print("Run#"+str(i+1)+" Current Money: "+ str(myGame.getTotalMoney()))
                 csvData.append([i+1, myGame.getTotalMoney()])  # run# and currentMoney
                 if(myGame.dAlembertEqualWinLoss is True):
@@ -250,6 +269,12 @@ while exitProgram != True:
         myGame.showNumbersChosen()
 
     elif (option == '5'):
+        for aWindow in windows:   # clears any existing windows
+            try:
+                aWindow.closeTableWindow()
+            except:
+                pass
+        windows.clear()
         myGame.clearBets()
 
     elif (option == '6'):

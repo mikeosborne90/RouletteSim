@@ -287,7 +287,7 @@ while exitProgram != True:
             else:
                 print("Needs to be an integer value!")
 
-            with open('results'+str(x)+'a.csv', 'w') as csvFile:
+            with open('results'+str(x)+'z.csv', 'w') as csvFile:
                 writer = csv.writer(csvFile)
                 writer.writerows(csvData)
             csvFile.close()

@@ -6,3 +6,4 @@ To run in bash terminal type: python roulette.py
 To open jupyter notebooks in bash terminal type: jupyter notebook
 
 <img src="https://i.imgur.com/vHoJ9wT.png" alt="Roulette GUI and Betting strategies" />
+<img src="https://i.imgur.com/Ceu9axC.png" alt="Graph of James Bond Strategy" />

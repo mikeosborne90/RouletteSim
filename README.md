@@ -5,4 +5,4 @@ Statistical analysis and exploration of Roulette strategies.
 To run in bash terminal type: python roulette.py
 To open jupyter notebooks in bash terminal type: jupyter notebook
 
-<img src="https://imgur.com/vHoJ9wT" />
+![alt text](https://imgur.com/vHoJ9wT)
